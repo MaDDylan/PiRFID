@@ -68,9 +68,10 @@ ser = serial.Serial(port,
                     )
 
 print('Ready!')
+
+draw.text((10, 0), 'scanning...', font=font18, fill=0)
+epd.display(epd.getbuffer(Himage))
 while 1:
-    draw.text((10, 0), 'scanning...', font=font18, fill=0)
-    epd.display(epd.getbuffer(Himage))
     RXstr = ser.readline()
     if len(RXstr) > 1:
         epd.Clear(0xFF)
@@ -91,7 +92,7 @@ while 1:
         draw.text((10, 22), 'searching...', font=font18, fill=0)
         epd.display(epd.getbuffer(Himage))
         print('Searching for ', dog_key)
-        
+
         search(dog_key)
 
         time.sleep(2)
