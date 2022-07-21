@@ -104,10 +104,10 @@ while 1:
         epd.display(epd.getbuffer(chpImg))
         print('Searching for ', dog_key)
 
-        search(dog_key, draw)
         newimage = chpImg.crop([10, 22, 290, 120])
         chpImg.paste(newimage, (10,22))
-        epd.display(epd.getbuffer(chpImg))
+        search(dog_key, draw)
+        epd.display_Partial(epd.getbuffer(chpImg))
 
         time.sleep(2)
         epd.sleep()
