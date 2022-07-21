@@ -34,10 +34,10 @@ def search(chip, draw):
                       'Gender: ', gender)
                 print('AKC #: ', akc)
                 print('Kennel: ', location)
-                draw.text((10, 22), 'Name: ', name, font=font18, fill=0)
-                draw.text((10, 22), 'Gender: ', gender, font=font18, fill=0)
-                draw.text((10, 22), 'AKC: ', akc, font=font18, fill=0)
-                draw.text((10, 22), 'Kennel: ', location, font=font18, fill=0)
+                draw.text((10, 22), 'Name: '+ name, font=font18, fill=0)
+                draw.text((10, 22), 'Gender: '+ gender, font=font18, fill=0)
+                draw.text((10, 22), 'AKC: '+ akc, font=font18, fill=0)
+                draw.text((10, 22), 'Kennel: '+ location, font=font18, fill=0)
                 break
             if json_load[i]['litter'] and len(json_load[i]['litter']) > 0:
                 j = 0
