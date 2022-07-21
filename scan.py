@@ -57,7 +57,6 @@ font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
 font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
 Himage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
 draw = ImageDraw.Draw(Himage)
-draw.text((10, 0), 'initializing...', font=font18, fill=0)
 print('initializing...')
 port = "/dev/ttyAMA0"
 ser = serial.Serial(port,
@@ -67,7 +66,6 @@ ser = serial.Serial(port,
                     stopbits=serial.STOPBITS_TWO,
                     timeout=.5
                     )
-epd.display(epd.getbuffer(Himage))
 
 print('Ready!')
 while 1:
@@ -87,7 +85,6 @@ while 1:
         print('Chip Number: ', str(int(out, 16)).rjust(12, '0'))
 
         dog_key = str(int(cc_str, 16)) + str(int(out, 16)).rjust(12, '0')
-        epd.Clear(0xFF)
         draw.text((10, 0), dog_key, font=font18, fill=0)
         draw.text((28, 0), 'searching...', font=font18, fill=0)
         
