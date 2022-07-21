@@ -24,7 +24,7 @@ def search(chip, draw):
         while i < len(json_load):
             if chip == json_load[i]['microchip']:
                 found = 1
-                name = json_load[i]['name'], json_load[i]['kennel']
+                name = str(json_load[i]['name']) + ' ' + str(json_load[i]['kennel'])
                 gender = json_load[i]['gender']
                 id = json_load[i]['id']
                 akc = json_load[i]['akc']
@@ -34,7 +34,7 @@ def search(chip, draw):
                       'Gender: ', gender)
                 print('AKC #: ', akc)
                 print('Kennel: ', location)
-                draw.text((10, 22), 'Name: '+ str(name), font=font18, fill=0)
+                draw.text((10, 22), 'Name: '+ name, font=font18, fill=0)
                 draw.text((10, 40), 'Gender: '+ str(gender), font=font18, fill=0)
                 draw.text((10, 58), 'AKC: '+ str(akc), font=font18, fill=0)
                 draw.text((10, 76), 'Kennel: '+ str(location), font=font18, fill=0)
