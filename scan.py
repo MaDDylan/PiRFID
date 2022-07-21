@@ -16,7 +16,7 @@ if os.path.exists(libdir):
     sys.path.append(libdir)
 
 
-def search(chip):
+def search(chip, draw):
     found = 0
     with open('./dogs.json', 'r') as json_file:
         json_load = json.load(json_file)
@@ -24,11 +24,20 @@ def search(chip):
         while i < len(json_load):
             if chip == json_load[i]['microchip']:
                 found = 1
-                print('Name:', json_load[i]['name'], json_load[i]['kennel'])
-                print('App ID: ', json_load[i]['id'],
-                      'Gender: ', json_load[i]['gender'])
-                print('AKC #: ', json_load[i]['akc'])
-                print('Kennel: ', json_load[i]['location'])
+                name = json_load[i]['name'], json_load[i]['kennel']
+                gender = json_load[i]['gender']
+                id = json_load[i]['id']
+                akc = json_load[i]['akc']
+                location = json_load[i]['location']
+                print('Name:', name)
+                print('App ID: ', id,
+                      'Gender: ', gender)
+                print('AKC #: ', akc)
+                print('Kennel: ', location)
+                draw.text((10, 22), 'Name: ', name, font=font18, fill=0)
+                draw.text((10, 22), 'Gender: ', gender, font=font18, fill=0)
+                draw.text((10, 22), 'AKC: ', akc, font=font18, fill=0)
+                draw.text((10, 22), 'Kennel: ', location, font=font18, fill=0)
                 break
             if json_load[i]['litter'] and len(json_load[i]['litter']) > 0:
                 j = 0
@@ -74,8 +83,8 @@ epd.display(epd.getbuffer(initImage))
 while 1:
     RXstr = ser.readline()
     if len(RXstr) > 1:
-        resImg = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame;
-        draw = ImageDraw.Draw(resImg)
+        chpImg = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame;
+        draw = ImageDraw.Draw(chpImg)
         epd.Clear(0xFF)
         print('Chip Found!')
 
@@ -92,10 +101,13 @@ while 1:
         dog_key = str(int(cc_str, 16)) + str(int(out, 16)).rjust(12, '0')
         draw.text((10, 0), dog_key, font=font18, fill=0)
         draw.text((10, 22), 'searching...', font=font18, fill=0)
-        epd.display(epd.getbuffer(resImg))
+        epd.display(epd.getbuffer(chpImg))
         print('Searching for ', dog_key)
 
-        search(dog_key)
+        search(dog_key, draw)
+        newimage = chpImg.crop([10, 22, 290, 120])
+        chpImg.paste(newimage, (10,22))
+        epd.display(epd.getbuffer(chpImg))
 
         time.sleep(2)
         epd.sleep()
